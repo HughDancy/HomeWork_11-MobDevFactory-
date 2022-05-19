@@ -61,20 +61,12 @@ class ViewController: UIViewController {
         return redactButton
     }()
     
-    private lazy var historyButton: UIButton = {
-        let image = UIImage(named: "photo")
-        let historyButton = UIButton()
-        historyButton.setImage(image, for: .normal)
-        historyButton.configuration?.imagePlacement = .top
-        historyButton.setTitle("История", for: .normal)
-        historyButton.backgroundColor = .black
-        historyButton.setTitleColor(.systemCyan, for: .normal)
-        historyButton.configuration?.imagePlacement = .top
-        
-        
-        return historyButton
-    }()
+    private lazy var historyButton = UIButton()
+    private lazy var recordButton = UIButton()
+    private lazy var photoButton = UIButton()
+    private lazy var clipButton = UIButton()
     
+    private lazy var houseButton = UIButton()
     
     
 // MARK: - Lifecycle
@@ -99,9 +91,58 @@ class ViewController: UIViewController {
         view.addSubview(onlineImage)
         view.addSubview(redactButton)
         view.addSubview(historyButton)
+        view.addSubview(recordButton)
+        view.addSubview(photoButton)
+        view.addSubview(clipButton)
+        view.addSubview(houseButton)
+        
+        
+        configurationButton()
         
     }
     
+    private func configurationButton () {
+        historyButton.configuration = .tinted()
+        historyButton.configuration?.baseBackgroundColor = .black
+        historyButton.configuration?.title = "История"
+        historyButton.configuration?.baseForegroundColor = .systemCyan
+        historyButton.configuration?.image = UIImage(named: "photo")
+        historyButton.configuration?.imagePlacement = .top
+        historyButton.configuration?.imagePadding = 6
+        
+        recordButton.configuration = .tinted()
+        recordButton.configuration?.baseBackgroundColor = .black
+        recordButton.configuration?.title = "Запись"
+        recordButton.configuration?.baseForegroundColor = .systemCyan
+        recordButton.configuration?.image = UIImage(named: "record")
+        recordButton.configuration?.imagePlacement = .top
+        recordButton.configuration?.imagePadding = 6
+        
+        photoButton.configuration = .tinted()
+        photoButton.configuration?.baseBackgroundColor = .black
+        photoButton.configuration?.title = "Фото"
+        photoButton.configuration?.baseForegroundColor = .systemCyan
+        photoButton.configuration?.image = UIImage(named: "album")
+        photoButton.configuration?.imagePlacement = .top
+        photoButton.configuration?.imagePadding = 12
+        
+        clipButton.configuration = .tinted()
+        clipButton.configuration?.baseBackgroundColor = .black
+        clipButton.configuration?.title = "Клип"
+        clipButton.configuration?.baseForegroundColor = .systemCyan
+        clipButton.configuration?.image = UIImage(named: "clip")
+        clipButton.configuration?.imagePlacement = .top
+        clipButton.configuration?.imagePadding = 13
+        
+        houseButton.configuration = .tinted()
+        houseButton.configuration?.baseBackgroundColor = .black
+        houseButton.configuration?.title = "Город: Москва"
+        houseButton.configuration?.baseForegroundColor = .lightGray
+        houseButton.configuration?.image = UIImage(named: "house")
+        houseButton.configuration?.imagePlacement = .leading
+        houseButton.configuration?.imagePadding = 15
+        
+    }
     
     private func setupLayout() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -138,8 +179,26 @@ class ViewController: UIViewController {
         redactButton.layer.cornerRadius = 21 * 0.5
         
         historyButton.translatesAutoresizingMaskIntoConstraints = false
-        historyButton.topAnchor.constraint(equalTo: redactButton.bottomAnchor, constant: 10).isActive = true
+        historyButton.topAnchor.constraint(equalTo: redactButton.bottomAnchor, constant: 15).isActive = true
         historyButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 25).isActive = true
+        
+        recordButton.translatesAutoresizingMaskIntoConstraints = false
+        recordButton.topAnchor.constraint(equalTo: redactButton.bottomAnchor, constant: 15).isActive = true
+        recordButton.leftAnchor.constraint(equalTo: historyButton.rightAnchor, constant: 20).isActive = true
+        
+        photoButton.translatesAutoresizingMaskIntoConstraints = false
+        photoButton.topAnchor.constraint(equalTo: redactButton.bottomAnchor, constant: 15).isActive = true
+        photoButton.leftAnchor.constraint(equalTo: recordButton.rightAnchor, constant: 20).isActive = true
+        
+        clipButton.translatesAutoresizingMaskIntoConstraints = false
+        clipButton.topAnchor.constraint(equalTo: redactButton.bottomAnchor, constant: 15).isActive = true
+        clipButton.leftAnchor.constraint(equalTo: photoButton.rightAnchor, constant: 20).isActive = true
+        
+    
+        houseButton.translatesAutoresizingMaskIntoConstraints = false
+        houseButton.topAnchor.constraint(equalTo: historyButton.bottomAnchor, constant: 50).isActive = true
+        houseButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
+        
         
     }
     
@@ -164,6 +223,10 @@ extension ViewController {
 
     enum Strings {
         static let redactButtonText: String = "Редактировать"
+    }
+    
+    enum Size {
+        static let houseSize = CGSize(width: 20, height: 20)
     }
 }
 
