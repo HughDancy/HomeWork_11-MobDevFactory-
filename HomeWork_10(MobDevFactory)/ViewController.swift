@@ -45,7 +45,7 @@ class ViewController: UIViewController {
     }()
     
     private lazy var onlineImage: UIImageView = {
-        let imageForOnline = UIImage(named: "ukulele")
+        let imageForOnline = UIImage(named: "online")
         let onlineImage = UIImageView(image: imageForOnline)
         
         return onlineImage
@@ -67,7 +67,10 @@ class ViewController: UIViewController {
     private lazy var clipButton = UIButton()
     
     private lazy var houseButton = UIButton()
-    
+    private lazy var followersButton = UIButton()
+    private lazy var workButton = UIButton()
+    private lazy var presentButton = UIButton()
+    private lazy var infoButton = UIButton()
     
 // MARK: - Lifecycle
     
@@ -95,6 +98,10 @@ class ViewController: UIViewController {
         view.addSubview(photoButton)
         view.addSubview(clipButton)
         view.addSubview(houseButton)
+        view.addSubview(followersButton)
+        view.addSubview(workButton)
+        view.addSubview(presentButton)
+        view.addSubview(infoButton)
         
         
         configurationButton()
@@ -108,7 +115,7 @@ class ViewController: UIViewController {
         historyButton.configuration?.baseForegroundColor = .systemCyan
         historyButton.configuration?.image = UIImage(named: "photo")
         historyButton.configuration?.imagePlacement = .top
-        historyButton.configuration?.imagePadding = 6
+        historyButton.configuration?.imagePadding = 9
         
         recordButton.configuration = .tinted()
         recordButton.configuration?.baseBackgroundColor = .black
@@ -140,7 +147,41 @@ class ViewController: UIViewController {
         houseButton.configuration?.baseForegroundColor = .lightGray
         houseButton.configuration?.image = UIImage(named: "house")
         houseButton.configuration?.imagePlacement = .leading
-        houseButton.configuration?.imagePadding = 15
+        houseButton.configuration?.imagePadding = 10
+        
+        followersButton.configuration = .tinted()
+        followersButton.configuration?.baseBackgroundColor = .black
+        followersButton.configuration?.title = "35 подписчиков"
+        followersButton.configuration?.baseForegroundColor = .lightGray
+        followersButton.configuration?.image = UIImage(named: "followers")
+        followersButton.configuration?.imagePlacement = .leading
+        followersButton.configuration?.imagePadding = 10
+        
+        workButton.configuration = .tinted()
+        workButton.configuration?.baseBackgroundColor = .black
+        workButton.configuration?.title = "Указать место работы"
+        workButton.configuration?.baseForegroundColor = .systemCyan
+        workButton.configuration?.image = UIImage(named: "work")
+        workButton.configuration?.imagePlacement = .leading
+        workButton.configuration?.imagePadding = 10
+        
+        presentButton.configuration = .tinted()
+        presentButton.configuration?.baseBackgroundColor = .black
+        presentButton.configuration?.title = "Получить подарок >"
+        presentButton.configuration?.baseForegroundColor = .systemIndigo
+        presentButton.configuration?.image = UIImage(named: "present")
+        presentButton.configuration?.imagePlacement = .leading
+        presentButton.configuration?.imagePadding = 10
+        
+        infoButton.configuration = .tinted()
+        infoButton.configuration?.baseBackgroundColor = .black
+        infoButton.configuration?.title = "Подробная информация"
+        infoButton.configuration?.baseForegroundColor = .white
+        infoButton.configuration?.image = UIImage(named: "info")
+        infoButton.configuration?.imagePlacement = .leading
+        infoButton.configuration?.imagePadding = 10
+        
+        
         
     }
     
@@ -198,6 +239,23 @@ class ViewController: UIViewController {
         houseButton.translatesAutoresizingMaskIntoConstraints = false
         houseButton.topAnchor.constraint(equalTo: historyButton.bottomAnchor, constant: 50).isActive = true
         houseButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
+        
+        followersButton.translatesAutoresizingMaskIntoConstraints = false
+        followersButton.topAnchor.constraint(equalTo: houseButton.bottomAnchor, constant: 7).isActive = true
+        followersButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
+        
+        workButton.translatesAutoresizingMaskIntoConstraints = false
+        workButton.topAnchor.constraint(equalTo: followersButton.bottomAnchor, constant: 7).isActive = true
+        workButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
+        
+        presentButton.translatesAutoresizingMaskIntoConstraints = false
+        presentButton.topAnchor.constraint(equalTo: workButton.bottomAnchor, constant: 7).isActive = true
+        presentButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
+        
+        infoButton.translatesAutoresizingMaskIntoConstraints = false
+        infoButton.topAnchor.constraint(equalTo: presentButton.bottomAnchor, constant: 7).isActive = true
+        infoButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
+        
         
         
     }
