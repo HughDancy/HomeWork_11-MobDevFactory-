@@ -21,7 +21,7 @@ class ViewController: UIViewController {
         let nameLabel = UILabel()
         nameLabel.font = .systemFont(ofSize: 22, weight: .bold)
         nameLabel.textColor = .white
-        nameLabel.text = "Алексей Павлов"
+        nameLabel.text = Strings.nameLabelText
         
         return nameLabel
     }()
@@ -30,7 +30,7 @@ class ViewController: UIViewController {
         let statusLabel = UILabel()
         statusLabel.font = .systemFont(ofSize: 19, weight: .medium)
         statusLabel.textColor = .systemCyan
-        statusLabel.text = "Установить статус"
+        statusLabel.text = Strings.statusLabel
         
         return statusLabel
     }()
@@ -39,7 +39,7 @@ class ViewController: UIViewController {
        let onlineLabel = UILabel()
         onlineLabel.font = .systemFont(ofSize: 17, weight: .light)
         onlineLabel.textColor = .lightGray
-        onlineLabel.text = "online"
+        onlineLabel.text = Strings.onlineLabel
     
         return onlineLabel
     }()
@@ -111,7 +111,7 @@ class ViewController: UIViewController {
     private func configurationButton () {
         historyButton.configuration = .tinted()
         historyButton.configuration?.baseBackgroundColor = .black
-        historyButton.configuration?.title = "История"
+        historyButton.configuration?.title = Strings.historyButton
         historyButton.configuration?.baseForegroundColor = .systemCyan
         historyButton.configuration?.image = UIImage(named: "photo")
         historyButton.configuration?.imagePlacement = .top
@@ -119,7 +119,7 @@ class ViewController: UIViewController {
         
         recordButton.configuration = .tinted()
         recordButton.configuration?.baseBackgroundColor = .black
-        recordButton.configuration?.title = "Запись"
+        recordButton.configuration?.title = Strings.recrodButton
         recordButton.configuration?.baseForegroundColor = .systemCyan
         recordButton.configuration?.image = UIImage(named: "record")
         recordButton.configuration?.imagePlacement = .top
@@ -127,7 +127,7 @@ class ViewController: UIViewController {
         
         photoButton.configuration = .tinted()
         photoButton.configuration?.baseBackgroundColor = .black
-        photoButton.configuration?.title = "Фото"
+        photoButton.configuration?.title = Strings.photoButton
         photoButton.configuration?.baseForegroundColor = .systemCyan
         photoButton.configuration?.image = UIImage(named: "album")
         photoButton.configuration?.imagePlacement = .top
@@ -135,7 +135,7 @@ class ViewController: UIViewController {
         
         clipButton.configuration = .tinted()
         clipButton.configuration?.baseBackgroundColor = .black
-        clipButton.configuration?.title = "Клип"
+        clipButton.configuration?.title = Strings.clipButton
         clipButton.configuration?.baseForegroundColor = .systemCyan
         clipButton.configuration?.image = UIImage(named: "clip")
         clipButton.configuration?.imagePlacement = .top
@@ -143,7 +143,7 @@ class ViewController: UIViewController {
         
         houseButton.configuration = .tinted()
         houseButton.configuration?.baseBackgroundColor = .black
-        houseButton.configuration?.title = "Город: Москва"
+        houseButton.configuration?.title = Strings.houseButton
         houseButton.configuration?.baseForegroundColor = .lightGray
         houseButton.configuration?.image = UIImage(named: "house")
         houseButton.configuration?.imagePlacement = .leading
@@ -151,7 +151,7 @@ class ViewController: UIViewController {
         
         followersButton.configuration = .tinted()
         followersButton.configuration?.baseBackgroundColor = .black
-        followersButton.configuration?.title = "35 подписчиков"
+        followersButton.configuration?.title = Strings.followersButton
         followersButton.configuration?.baseForegroundColor = .lightGray
         followersButton.configuration?.image = UIImage(named: "followers")
         followersButton.configuration?.imagePlacement = .leading
@@ -159,7 +159,7 @@ class ViewController: UIViewController {
         
         workButton.configuration = .tinted()
         workButton.configuration?.baseBackgroundColor = .black
-        workButton.configuration?.title = "Указать место работы"
+        workButton.configuration?.title = Strings.workButton
         workButton.configuration?.baseForegroundColor = .systemCyan
         workButton.configuration?.image = UIImage(named: "work")
         workButton.configuration?.imagePlacement = .leading
@@ -167,7 +167,7 @@ class ViewController: UIViewController {
         
         presentButton.configuration = .tinted()
         presentButton.configuration?.baseBackgroundColor = .black
-        presentButton.configuration?.title = "Получить подарок >"
+        presentButton.configuration?.title = Strings.presentButton
         presentButton.configuration?.baseForegroundColor = .systemIndigo
         presentButton.configuration?.image = UIImage(named: "present")
         presentButton.configuration?.imagePlacement = .leading
@@ -175,7 +175,7 @@ class ViewController: UIViewController {
         
         infoButton.configuration = .tinted()
         infoButton.configuration?.baseBackgroundColor = .black
-        infoButton.configuration?.title = "Подробная информация"
+        infoButton.configuration?.title = Strings.infoButton
         infoButton.configuration?.baseForegroundColor = .white
         infoButton.configuration?.image = UIImage(named: "info")
         infoButton.configuration?.imagePlacement = .leading
@@ -281,10 +281,22 @@ extension ViewController {
 
     enum Strings {
         static let redactButtonText: String = "Редактировать"
+        static let nameLabelText: String = "Алексей Павлов"
+        static let statusLabel: String = "Установить статус"
+        static let onlineLabel: String = "online"
+        static let historyButton: String = "История"
+        static let recrodButton: String = "Запись"
+        static let photoButton: String = "Фото"
+        static let clipButton: String = "Клип"
+        static let houseButton: String = "Город: Москва"
+        static let followersButton: String = "35 подписчиков"
+        static let workButton: String = "Указать место работы"
+        static let presentButton: String = "Получить подарок >"
+        static let infoButton: String = "Подробная информация"
     }
     
     enum Size {
-        static let houseSize = CGSize(width: 20, height: 20)
+        
     }
 }
 
