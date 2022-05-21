@@ -221,19 +221,19 @@ class ViewController: UIViewController {
         
         historyButton.translatesAutoresizingMaskIntoConstraints = false
         historyButton.topAnchor.constraint(equalTo: redactButton.bottomAnchor, constant: 15).isActive = true
-        historyButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 25).isActive = true
+        historyButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 9).isActive = true
         
         recordButton.translatesAutoresizingMaskIntoConstraints = false
         recordButton.topAnchor.constraint(equalTo: redactButton.bottomAnchor, constant: 15).isActive = true
-        recordButton.leftAnchor.constraint(equalTo: historyButton.rightAnchor, constant: 20).isActive = true
+        recordButton.leftAnchor.constraint(equalTo: historyButton.rightAnchor, constant: 5).isActive = true
         
         photoButton.translatesAutoresizingMaskIntoConstraints = false
         photoButton.topAnchor.constraint(equalTo: redactButton.bottomAnchor, constant: 15).isActive = true
-        photoButton.leftAnchor.constraint(equalTo: recordButton.rightAnchor, constant: 20).isActive = true
+        photoButton.leftAnchor.constraint(equalTo: recordButton.rightAnchor, constant: 5).isActive = true
         
         clipButton.translatesAutoresizingMaskIntoConstraints = false
         clipButton.topAnchor.constraint(equalTo: redactButton.bottomAnchor, constant: 15).isActive = true
-        clipButton.leftAnchor.constraint(equalTo: photoButton.rightAnchor, constant: 20).isActive = true
+        clipButton.leftAnchor.constraint(equalTo: photoButton.rightAnchor, constant: 2).isActive = true
         
     
         houseButton.translatesAutoresizingMaskIntoConstraints = false
