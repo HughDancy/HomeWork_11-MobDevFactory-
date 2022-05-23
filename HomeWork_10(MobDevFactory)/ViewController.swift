@@ -72,6 +72,23 @@ class ViewController: UIViewController {
     private lazy var presentButton = UIButton()
     private lazy var infoButton = UIButton()
     
+    
+// MARK: - Stackview's
+    
+    private lazy var parentStackview: UIStackView = {
+       let parentStackview = UIStackView()
+        parentStackview.axis = .vertical
+        
+        return parentStackview
+    }()
+    
+    private lazy var nameAndStatusStackview: UIStackView = {
+        let nameAndStatusStackview = UIStackView()
+        parentStackview.axis = .vertical
+        
+        return nameAndStatusStackview
+    }()
+    
 // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -87,7 +104,11 @@ class ViewController: UIViewController {
 // MARK: - Settings
 
     private func setupHierarchy() {
-        view.addSubview(imageView)
+        view.addSubview(parentStackview)
+        parentStackview.addSubview(imageView)
+        parentStackview.addSubview(nameAndStatusStackview)
+        //view.addSubview(imageView)
+        view.addSubview(nameAndStatusStackview)
         view.addSubview(nameLabel)
         view.addSubview(statusLabel)
         view.addSubview(onlineLabel)
@@ -186,17 +207,29 @@ class ViewController: UIViewController {
     }
     
     private func setupLayout() {
+        parentStackview.translatesAutoresizingMaskIntoConstraints = false
+        parentStackview.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 3).isActive = true
+        parentStackview.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 3).isActive = true
+        parentStackview.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -3).isActive = true
+        parentStackview.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -3).isActive = true
+        
+        nameAndStatusStackview.translatesAutoresizingMaskIntoConstraints = false
+        nameAndStatusStackview.topAnchor.constraint(equalTo: parentStackview.topAnchor, constant: 15).isActive = true
+        nameAndStatusStackview.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 21).isActive = true
+        
+        
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 1).isActive = true
-        imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 55).isActive = true
-        imageView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 21).isActive = true
+       
+        imageView.topAnchor.constraint(equalTo: parentStackview.topAnchor, constant: 10).isActive = true
+        imageView.leftAnchor.constraint(equalTo: parentStackview.leftAnchor, constant: 21).isActive = true
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 100 / 2
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 70).isActive = true
         nameLabel.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 15).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 1).isActive = true
         
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         statusLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5).isActive = true
@@ -259,6 +292,9 @@ class ViewController: UIViewController {
         
         
     }
+    
+// MARK: - StackViews settings
+    
     
     private func setupView() {
         view.backgroundColor = .black
