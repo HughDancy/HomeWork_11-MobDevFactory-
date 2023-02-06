@@ -8,12 +8,14 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    //MARK: - Subview's
+    
     private lazy var imageView: UIImageView = {
         let manImage = UIImage(named: "man")
         let imageView = UIImageView(image: manImage)
         imageView.backgroundColor = .systemMint
-    
+        
         return imageView
     }()
     
@@ -35,21 +37,7 @@ class ViewController: UIViewController {
         return statusLabel
     }()
     
-    private lazy var onlineLabel: UILabel = {
-       let onlineLabel = UILabel()
-        onlineLabel.font = .systemFont(ofSize: 17, weight: .light)
-        onlineLabel.textColor = .lightGray
-        onlineLabel.text = Strings.onlineLabel
-    
-        return onlineLabel
-    }()
-    
-    private lazy var onlineImage: UIImageView = {
-        let imageForOnline = UIImage(named: "online")
-        let onlineImage = UIImageView(image: imageForOnline)
-        
-        return onlineImage
-    }()
+    private lazy var onlineButton = UIButton()
     
     private lazy var redactButton: UIButton = {
         let redactButton = UIButton()
@@ -60,7 +48,7 @@ class ViewController: UIViewController {
         
         return redactButton
     }()
-    
+
     private lazy var historyButton = UIButton()
     private lazy var recordButton = UIButton()
     private lazy var photoButton = UIButton()
@@ -71,68 +59,103 @@ class ViewController: UIViewController {
     private lazy var workButton = UIButton()
     private lazy var presentButton = UIButton()
     private lazy var infoButton = UIButton()
+
+    // MARK: - Stackview's
     
-    
-// MARK: - Stackview's
-    
-    private lazy var parentStackview: UIStackView = {
-       let parentStackview = UIStackView()
-        parentStackview.axis = .vertical
+    private lazy var profileStackView: UIStackView = {
+       let stackVIew = UIStackView()
+        stackVIew.axis = .horizontal
+        stackVIew.spacing = 20
         
-        return parentStackview
+        return stackVIew
     }()
     
     private lazy var nameAndStatusStackview: UIStackView = {
         let nameAndStatusStackview = UIStackView()
-        parentStackview.axis = .vertical
+        nameAndStatusStackview.axis = .vertical
+        nameAndStatusStackview.spacing = 5
+        nameAndStatusStackview.alignment = .leading
         
         return nameAndStatusStackview
     }()
     
-// MARK: - Lifecycle
+    private lazy var buttonsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 10
+        
+        return stackView
+    }()
+    
+    private lazy var infoButtonsStackView: UIStackView = {
+       let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.spacing = 9
+        
+        return stackView
+    }()
+    
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = .black
         
         setupHierarchy()
         setupLayout()
-        setupView()
-
-    }
-
-// MARK: - Settings
-
-    private func setupHierarchy() {
-        view.addSubview(parentStackview)
-        parentStackview.addSubview(imageView)
-        parentStackview.addSubview(nameAndStatusStackview)
-        //view.addSubview(imageView)
-        view.addSubview(nameAndStatusStackview)
-        view.addSubview(nameLabel)
-        view.addSubview(statusLabel)
-        view.addSubview(onlineLabel)
-        view.addSubview(onlineImage)
-        view.addSubview(redactButton)
-        view.addSubview(historyButton)
-        view.addSubview(recordButton)
-        view.addSubview(photoButton)
-        view.addSubview(clipButton)
-        view.addSubview(houseButton)
-        view.addSubview(followersButton)
-        view.addSubview(workButton)
-        view.addSubview(presentButton)
-        view.addSubview(infoButton)
-        
-        
         configurationButton()
-        
     }
     
+    // MARK: - Setup Hierarchy
+    
+    private func setupHierarchy() {
+        nameAndStatusStackview.addArrangedSubview(nameLabel)
+        nameAndStatusStackview.addArrangedSubview(statusLabel)
+        nameAndStatusStackview.addArrangedSubview(onlineButton)
+        profileStackView.addArrangedSubview(imageView)
+        profileStackView.addArrangedSubview(nameAndStatusStackview)
+        view.addSubview(profileStackView)
+        view.addSubview(redactButton)
+        buttonsStackView.addArrangedSubview(historyButton)
+        buttonsStackView.addArrangedSubview(recordButton)
+        buttonsStackView.addArrangedSubview(photoButton)
+        buttonsStackView.addArrangedSubview(clipButton)
+        view.addSubview(buttonsStackView)
+        infoButtonsStackView.addArrangedSubview(houseButton)
+        infoButtonsStackView.addArrangedSubview(followersButton)
+        infoButtonsStackView.addArrangedSubview(workButton)
+        infoButtonsStackView.addArrangedSubview(presentButton)
+        infoButtonsStackView.addArrangedSubview(infoButton)
+        view.addSubview(infoButtonsStackView)
+    }
+    
+    //MARK: - Configure Button
+    
     private func configurationButton () {
+        onlineButton.configuration = .tinted()
+        onlineButton.configuration?.baseBackgroundColor = .black
+        onlineButton.configuration?.title = Strings.onlineLabel
+        onlineButton.configuration?.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
+            var outgoing = incoming
+            outgoing.font = UIFont.systemFont(ofSize: 17)
+            return outgoing
+        }
+        onlineButton.configuration?.baseForegroundColor = .lightGray
+        onlineButton.configuration?.image = UIImage(systemName: "iphone.gen1")
+        onlineButton.configuration?.imagePlacement = .leading
+        onlineButton.configuration?.imagePadding = 5
+        onlineButton.isUserInteractionEnabled = false
+        
         historyButton.configuration = .tinted()
         historyButton.configuration?.baseBackgroundColor = .black
         historyButton.configuration?.title = Strings.historyButton
+        historyButton.configuration?.titleAlignment = .center
+        historyButton.configuration?.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
+            var outgoing = incoming
+            outgoing.font = UIFont.systemFont(ofSize: 12)
+            return outgoing
+        }
         historyButton.configuration?.baseForegroundColor = .systemCyan
         historyButton.configuration?.image = UIImage(named: "photo")
         historyButton.configuration?.imagePlacement = .top
@@ -141,6 +164,12 @@ class ViewController: UIViewController {
         recordButton.configuration = .tinted()
         recordButton.configuration?.baseBackgroundColor = .black
         recordButton.configuration?.title = Strings.recrodButton
+        recordButton.configuration?.titleAlignment = .center
+        recordButton.configuration?.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
+            var outgoing = incoming
+            outgoing.font = UIFont.systemFont(ofSize: 12)
+            return outgoing
+        }
         recordButton.configuration?.baseForegroundColor = .systemCyan
         recordButton.configuration?.image = UIImage(named: "record")
         recordButton.configuration?.imagePlacement = .top
@@ -149,6 +178,12 @@ class ViewController: UIViewController {
         photoButton.configuration = .tinted()
         photoButton.configuration?.baseBackgroundColor = .black
         photoButton.configuration?.title = Strings.photoButton
+        photoButton.configuration?.titleAlignment = .center
+        photoButton.configuration?.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
+            var outgoing = incoming
+            outgoing.font = UIFont.systemFont(ofSize: 12)
+            return outgoing
+        }
         photoButton.configuration?.baseForegroundColor = .systemCyan
         photoButton.configuration?.image = UIImage(named: "album")
         photoButton.configuration?.imagePlacement = .top
@@ -157,6 +192,12 @@ class ViewController: UIViewController {
         clipButton.configuration = .tinted()
         clipButton.configuration?.baseBackgroundColor = .black
         clipButton.configuration?.title = Strings.clipButton
+        clipButton.configuration?.titleAlignment = .center
+        clipButton.configuration?.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
+            var outgoing = incoming
+            outgoing.font = UIFont.systemFont(ofSize: 12)
+            return outgoing
+        }
         clipButton.configuration?.baseForegroundColor = .systemCyan
         clipButton.configuration?.image = UIImage(named: "clip")
         clipButton.configuration?.imagePlacement = .top
@@ -201,120 +242,42 @@ class ViewController: UIViewController {
         infoButton.configuration?.image = UIImage(named: "info")
         infoButton.configuration?.imagePlacement = .leading
         infoButton.configuration?.imagePadding = 10
-        
-        
-        
     }
     
+    //MARK: - Setup Layout
+    
     private func setupLayout() {
-        parentStackview.translatesAutoresizingMaskIntoConstraints = false
-        parentStackview.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 3).isActive = true
-        parentStackview.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 3).isActive = true
-        parentStackview.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -3).isActive = true
-        parentStackview.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -3).isActive = true
-        
-        nameAndStatusStackview.translatesAutoresizingMaskIntoConstraints = false
-        nameAndStatusStackview.topAnchor.constraint(equalTo: parentStackview.topAnchor, constant: 15).isActive = true
-        nameAndStatusStackview.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 21).isActive = true
-        
-        
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-       
-        imageView.topAnchor.constraint(equalTo: parentStackview.topAnchor, constant: 10).isActive = true
-        imageView.leftAnchor.constraint(equalTo: parentStackview.leftAnchor, constant: 21).isActive = true
         imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = 100 / 2
-        
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 70).isActive = true
-        nameLabel.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 15).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 1).isActive = true
+        imageView.layer.cornerRadius = 100 / 2
         
-        statusLabel.translatesAutoresizingMaskIntoConstraints = false
-        statusLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5).isActive = true
-        statusLabel.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 15).isActive = true
-        
-        onlineLabel.translatesAutoresizingMaskIntoConstraints = false
-        onlineLabel.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 5).isActive = true
-        onlineLabel.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 15).isActive = true
-        
-        onlineImage.translatesAutoresizingMaskIntoConstraints = false
-        onlineImage.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 5).isActive = true
-        onlineImage.leftAnchor.constraint(equalTo: onlineLabel.rightAnchor, constant: 5).isActive = true
-        onlineImage.widthAnchor.constraint(equalToConstant: 15).isActive = true
-        onlineImage.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        
+        profileStackView.translatesAutoresizingMaskIntoConstraints = false
+        profileStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+        profileStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
+
         redactButton.translatesAutoresizingMaskIntoConstraints = false
-        redactButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 15).isActive = true
+        redactButton.topAnchor.constraint(equalTo: profileStackView.bottomAnchor, constant: 15).isActive = true
         redactButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 21).isActive = true
         redactButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -21).isActive = true
         redactButton.layer.masksToBounds = true
         redactButton.layer.cornerRadius = 21 * 0.5
         
-        historyButton.translatesAutoresizingMaskIntoConstraints = false
-        historyButton.topAnchor.constraint(equalTo: redactButton.bottomAnchor, constant: 15).isActive = true
-        historyButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 9).isActive = true
+        buttonsStackView.translatesAutoresizingMaskIntoConstraints = false
+        buttonsStackView.topAnchor.constraint(equalTo: redactButton.bottomAnchor, constant: 15).isActive = true
+        buttonsStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        buttonsStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
         
-        recordButton.translatesAutoresizingMaskIntoConstraints = false
-        recordButton.topAnchor.constraint(equalTo: redactButton.bottomAnchor, constant: 15).isActive = true
-        recordButton.leftAnchor.constraint(equalTo: historyButton.rightAnchor, constant: 5).isActive = true
-        
-        photoButton.translatesAutoresizingMaskIntoConstraints = false
-        photoButton.topAnchor.constraint(equalTo: redactButton.bottomAnchor, constant: 15).isActive = true
-        photoButton.leftAnchor.constraint(equalTo: recordButton.rightAnchor, constant: 5).isActive = true
-        
-        clipButton.translatesAutoresizingMaskIntoConstraints = false
-        clipButton.topAnchor.constraint(equalTo: redactButton.bottomAnchor, constant: 15).isActive = true
-        clipButton.leftAnchor.constraint(equalTo: photoButton.rightAnchor, constant: 2).isActive = true
-        
-    
-        houseButton.translatesAutoresizingMaskIntoConstraints = false
-        houseButton.topAnchor.constraint(equalTo: historyButton.bottomAnchor, constant: 50).isActive = true
-        houseButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
-        
-        followersButton.translatesAutoresizingMaskIntoConstraints = false
-        followersButton.topAnchor.constraint(equalTo: houseButton.bottomAnchor, constant: 7).isActive = true
-        followersButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
-        
-        workButton.translatesAutoresizingMaskIntoConstraints = false
-        workButton.topAnchor.constraint(equalTo: followersButton.bottomAnchor, constant: 7).isActive = true
-        workButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
-        
-        presentButton.translatesAutoresizingMaskIntoConstraints = false
-        presentButton.topAnchor.constraint(equalTo: workButton.bottomAnchor, constant: 7).isActive = true
-        presentButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
-        
-        infoButton.translatesAutoresizingMaskIntoConstraints = false
-        infoButton.topAnchor.constraint(equalTo: presentButton.bottomAnchor, constant: 7).isActive = true
-        infoButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
-        
-        
-        
+        infoButtonsStackView.translatesAutoresizingMaskIntoConstraints = false
+        infoButtonsStackView.topAnchor.constraint(equalTo: buttonsStackView.bottomAnchor, constant: 10).isActive = true
+        infoButtonsStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
     }
-    
-// MARK: - StackViews settings
-    
-    
-    private func setupView() {
-        view.backgroundColor = .black
-        
-    }
-    
-// MARK: - Private methods
-    
-   
-    
 }
 
-// MARK: - Constants
-    
+// MARK: - Extension
+
 extension ViewController {
     
-    enum Metric {
-        
-    }
-
     enum Strings {
         static let redactButtonText: String = "Редактировать"
         static let nameLabelText: String = "Алексей Павлов"
@@ -329,10 +292,6 @@ extension ViewController {
         static let workButton: String = "Указать место работы"
         static let presentButton: String = "Получить подарок >"
         static let infoButton: String = "Подробная информация"
-    }
-    
-    enum Size {
-        
     }
 }
 
